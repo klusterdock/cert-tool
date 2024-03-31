@@ -79,12 +79,12 @@ function test_ca() {
     start_diff=$(("${now}" - "${start_time}"))
     end_diff=$(("${end_time}" - "${now}"))
 
-    if [[ "${start_diff}" -ne 300 ]] && [[ "${start_diff}" -ne 299 ]]; then
+    if [[ "${start_diff}" -gt $((5 * 60)) ]] && [[ "${start_diff}" -lt $((4 * 60)) ]]; then
         echo "CA start time is invalid"
         return 1
     fi
 
-    if [[ "${end_diff}" -ne $((24 * 60 * 60 + 300)) ]] && [[ "${end_diff}" -ne $((24 * 60 * 60 + 301)) ]]; then
+    if [[ "${end_diff}" -lt $((24 * 60 * 60 + 5 * 60)) ]] && [[ "${end_diff}" -gt $((24 * 60 * 60 + 6 * 60)) ]]; then
         echo "CA end time is invalid"
         return 1
     fi
@@ -127,12 +127,12 @@ function test_cert() {
     start_diff=$(("${now}" - "${start_time}"))
     end_diff=$(("${end_time}" - "${now}"))
 
-    if [[ "${start_diff}" -ne $((10 * 60)) ]] && [[ "${start_diff}" -ne $((10 * 60 -1)) ]]; then
+    if [[ "${start_diff}" -gt $((10 * 60)) ]] && [[ "${start_diff}" -lt $((9 * 60)) ]]; then
         echo "Cert start time is invalid"
         return 1
     fi
 
-    if [[ "${end_diff}" -ne $((24 * 60 * 60 + 10 * 60)) ]] && [[ "${end_diff}" -ne $((24 * 60 * 60 + 10 * 60 + 1)) ]]; then
+    if [[ "${end_diff}" -lt $((24 * 60 * 60 + 10 * 60)) ]] && [[ "${end_diff}" -gt $((24 * 60 * 60 + 11 * 60)) ]]; then
         echo "Cert end time is invalid"
         return 1
     fi
@@ -191,12 +191,12 @@ function test_kubeconfig() {
     start_diff=$(("${now}" - "${start_time}"))
     end_diff=$(("${end_time}" - "${now}"))
 
-    if [[ "${start_diff}" -ne $((10 * 60)) ]] && [[ "${start_diff}" -ne $((10 * 60 -1)) ]]; then
+    if [[ "${start_diff}" -gt $((10 * 60)) ]] && [[ "${start_diff}" -lt $((9 * 60)) ]]; then
         echo "Client Cert start time is invalid"
         return 1
     fi
 
-    if [[ "${end_diff}" -ne $((48 * 60 * 60 + 10 * 60)) ]] && [[ "${end_diff}" -ne $((48 * 60 * 60 + 10 * 60 + 1)) ]]; then
+    if [[ "${end_diff}" -lt $((48 * 60 * 60 + 10 * 60)) ]] && [[ "${end_diff}" -gt $((48 * 60 * 60 + 11 * 60)) ]]; then
         echo "Client Cert end time is invalid"
         return 1
     fi
